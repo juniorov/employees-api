@@ -5,6 +5,33 @@
 > npm run start
 ```
 
+### GET: all employees
+```shell
+url: '/'
+```
+
+### POST: Create employee
+```shell
+url :'/'
+data: {
+  id: numeric,
+  name: string,
+  surname: string,
+  level: numeric,
+  salary: numeric
+}
+```
+
+### GET: Find one employee
+```shell
+url :'/:id'
+```
+
+### DELETE: destroy one employee
+```shell
+url :'/:id'
+```
+
 
 ```shell
 EMPLOYEES API
