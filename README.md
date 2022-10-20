@@ -1,3 +1,11 @@
+### Command to run it
+```shell
+> npm install
+
+> npm run start
+```
+
+
 ```shell
 EMPLOYEES API
  
