@@ -1,9 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const { verifyToken } = require('../middlewares');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+const usersRouter = require('./users');
+const employeesRouter = require('./EmployeesRoutes');
+
+router.use(verifyToken);
+router.use(require('./EmployeesRoutes'));
+router.use('/employees', employeesRouter);
 
 module.exports = router;
