@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { verifyToken } = require('../middlewares');
 
-const usersRouter = require('./users');
-const employeesRouter = require('./EmployeesRoutes');
+router.use(require('./AuthRoutes'));
 
 router.use(verifyToken);
+router.use(require('./UsersRoutes'));
 router.use(require('./EmployeesRoutes'));
-router.use('/employees', employeesRouter);
 
 module.exports = router;

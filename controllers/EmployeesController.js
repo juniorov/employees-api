@@ -11,7 +11,14 @@ module.exports = {
             res.status(404).send({ message: 'Error creating employee', err });
         }
     },
-    find: async (req, res) => {},
+    find: async (req, res) => {
+        try {
+            const employees = await EmployeesService.find();
+            res.status(200).send(employees);
+        } catch (err) {
+            res.status(404).send({ message: 'Employees not found', err });
+        }
+    },
     findById: async (req, res) => {},
     findByIdAndUpdate: async (req, res) => {
         const { id } = req.params,

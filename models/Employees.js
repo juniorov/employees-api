@@ -19,11 +19,11 @@ const employeeSchema = new Schema({
         required: true,
     },
     salary: {
-        type: FLOAT,
+        type: Number,
         required: true
     }
 });
 
-const Employee = mongoose.model('Employee', employeeSchema);
+const Employees = mongoose.model('Employees', employeeSchema);
 
-module.exports = Employee;
+module.exports = Employees;
