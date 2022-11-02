@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const employeeSchema = new Schema({
     id : {
         type: Number,
-        unique: true
+        default: 1
     },
     name: {
         type: String,
@@ -21,6 +21,24 @@ const employeeSchema = new Schema({
     salary: {
         type: Number,
         required: true
+    }
+});
+
+employeeSchema.pre('save', function(next){
+    const employee = this;
+
+    if(employee.isNew) {
+        let lastOne = Employees.findOne({}).sort({ _id: -1 }).then((employeeDB) => {
+            if(employeeDB === null) {
+                employee.id = 1;
+                employee._id = 1;
+                next();
+            } else {
+                employee.id = employeeDB.id + 1;
+                employee._id = employeeDB.id + 1;
+                next();
+            }
+        });
     }
 });
 

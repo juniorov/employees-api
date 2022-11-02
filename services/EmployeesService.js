@@ -5,11 +5,9 @@ module.exports = {
         const employee = new Employee(body);
         return employee.save();
     },
-    find: () => Employee.find() ,
+    find: () => Employee.find(),
+    findOne: (filters = {}) => Employee.findOne(filters),
     findById: id => Employee.findById(id),
-    update: (employee, body) => {
-        Object.assign(employee, body);
-        return employee.save();
-    },
+    update: (employee, body) => employee.updateOne(body),
     delete: id => Employee.deleteOne({'id' : id})
 }
