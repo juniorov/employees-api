@@ -77,7 +77,7 @@ module.exports = {
                 fullname: user.fullname,
                 email: user.email,
             });
-            res.status(200).send({ message: "Get inside", token });
+            res.status(200).send({ message: "Get inside", 'token' : token });
         } catch (err) {
             console.log('login',err);
             res.status(400).send({ message: 'Error on login', err });
