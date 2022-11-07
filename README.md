@@ -21,6 +21,20 @@
 3. The token should expire in 2 minutes. However, if a successful request happens, the system will generate another token that can be used by further requests, so the session can be extended two more minutes.
 ```
 
+### Week 3
+```text
+**Persistent data**
+
+**Make the employee data structure persistent: ID, name, surname, level and salary**
+**You could use a Database or any other option like write data to disk, json files or cloud storage, however you’ll be responsible for dealing with issues like concurrency and caching rather than a database**
+**The application should be refactored to use the persistent data (CRUD)**
+
+**The application should store logs on a plain text file (txt) of the actions and errors during the lifecycle of the app using log levels like:**
+- Err
+- Warn
+- Info
+```
+
 ### Command to run it
 ```shell
 > npm install

@@ -8,16 +8,18 @@ module.exports = {
             let employee = null;
 
             if( req.body.id == undefined) {
+                utils.writeLogs('Info', 'Creating employee');
                 employee = await EmployeesService.create(req.body);
             } else {
                 const employeeToUpdate = await EmployeesService.findOne({ id: req.body.id });
                 employee =  await EmployeesService.update(employeeToUpdate, req.body);
+                utils.writeLogs('Info', 'Updating employee');
             }
             const token = utils.decodeToken(req.headers.authorization);
 
             res.status(201).send({ data: employee, token});
         } catch(err) {
-            console.log('Create', err);
+            utils.writeLogs('Err', 'Error creating employee' + err);
             res.status(404).send({ message: 'Error creating employee', err });
         }
     },
@@ -25,8 +27,10 @@ module.exports = {
         try {
             const employees = await EmployeesService.find(),
                 token = utils.decodeToken(req.headers.authorization);
+            utils.writeLogs('Info', 'Get all employees');
             res.status(200).send({ employees, token});
         } catch (err) {
+            utils.writeLogs('Err', err);
             res.status(404).send({ message: 'Employees not found', err });
         }
     },
@@ -34,9 +38,11 @@ module.exports = {
         const { id } = req.params;
         try {
             const employee = await EmployeesService.findById(id);
+            utils.writeLogs('Info', 'Find employee by id');
             res.status(200).send({data: employee, toke: ''});
         } catch (err) {
-            res.status(404).send({ message: 'User not found', err });
+            utils.writeLogs('Err', 'Employee not found' + err);
+            res.status(404).send({ message: 'Employee not found', err });
         }
     },
     findByIdAndUpdate: async (req, res) => {
@@ -52,9 +58,10 @@ module.exports = {
                 name: updatedEmployee.name,
                 surname: updatedEmployee.surname,
             }
+            utils.writeLogs('Info', 'Find and update employee');
             res.status(200).send({ updatedEmployee, token });
         } catch (err) {
-            console.log('Update', err);
+            utils.writeLogs('Info', 'Error updating employee' + err);
             res.status(404).send({ message: 'Error updating employee', err })
         }
     },
@@ -62,9 +69,10 @@ module.exports = {
         const { id } = req.params;
         try {
             const employee = await EmployeesService.delete(id);
+            utils.writeLogs('Info', 'Delete employee');
             res.status(204).send();
         } catch (err) {
-            console.log('Delete', err);
+            utils.writeLogs('Info', 'Error deleting employee' + err);
             res.status(404).send({ message: 'Error deleting employee', err });
         }
     },

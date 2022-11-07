@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
-const { EXPIRES_IN, JWT_SECRET } = process.env
-// const JWT_SECRET = process.env.JWT_SECRET;
+const fs = require("fs");
+const { EXPIRES_IN, JWT_SECRET } = process.env;
 const MINUTES = EXPIRES_IN ?? 2;
+const date = new Date();
 
 const createToken = payload => {
     const token = jwt.sign({
@@ -18,7 +19,17 @@ const decodeToken = data => {
     return createToken(jwt.verify(token, JWT_SECRET));
 }
 
+const writeLogs = (type = 'INFO', message = '') => {
+    try {
+        const fileName = 'logs/logs-app.txt';
+        fs.appendFileSync(fileName, date.toLocaleString()+' => '+type+" : "+message + '\n', 'utf-8');
+    } catch(err) {
+        console.log('Error appending data to file in sync mode', err);
+    }
+}
+
 module.exports = {
     createToken,
-    decodeToken
+    decodeToken,
+    writeLogs
 }
