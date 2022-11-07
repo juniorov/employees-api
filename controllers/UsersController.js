@@ -58,6 +58,7 @@ module.exports = {
     signup: async (req, res) => {
         try {
             const user = await UsersService.create(req.body);
+            user.password = '';
             res.status(201).send({ message: "Signup successfully", user });
         } catch (err) {
             console.log('signup',err);
